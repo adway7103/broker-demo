@@ -1,0 +1,119 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = "mongodb+srv://adway:adway@cluster0.prfbc6w.mongodb.net/realestate"
+}
+
+enum MumbaiLocality {
+  ANDHERI_EAST
+  ANDHERI_WEST
+  BANDRA_EAST
+  BANDRA_WEST
+  BORIVALI_EAST
+  BORIVALI_WEST
+  CHEMBUR
+  DADAR_EAST
+  DADAR_WEST
+  GHATKOPAR_EAST
+  GHATKOPAR_WEST
+  GOREGAON_EAST
+  GOREGAON_WEST
+  JUHU
+  KANDIVALI_EAST
+  KANDIVALI_WEST
+  KHAR_WEST
+  KURLA_EAST
+  KURLA_WEST
+  LOWER_PAREL
+  MALAD_EAST
+  MALAD_WEST
+  MIRA_ROAD
+  MULUND_EAST
+  MULUND_WEST
+  NAVI_MUMBAI
+  POWAI
+  SANTACRUZ_EAST
+  SANTACRUZ_WEST
+  THANE_EAST
+  THANE_WEST
+  VERSOVA
+  VIKHROLI_EAST
+  VIKHROLI_WEST
+  VILE_PARLE_EAST
+  VILE_PARLE_WEST
+  WORLI
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("USER") // USER or ADMIN
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Property {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String
+  price        Int
+  currency     String         @default("INR")
+  propertyType String         // 1BHK, 2BHK, 3BHK, etc.
+  listingType  String         // RENT or BUY
+  locality     MumbaiLocality
+  city         String?
+  state        String?
+  furnishing   String         // FULLY_FURNISHED, SEMI_FURNISHED, UNFURNISHED
+  images       String[]       // Array of image URLs
+  videos       String[]       // Array of video URLs
+  isRented     Boolean        @default(false)
+  features     String[]       // Array of features/amenities
+  area         Int?           // Square feet
+  bedrooms     Int?
+  bathrooms    Int?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  
+  // Relations
+  shortlists   Shortlist[]
+
+  @@map("properties")
+}
+
+model Lead {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  phoneNumber  String
+  email        String?
+  name         String?
+  budget       String?
+  propertyType String?
+  locality     String?
+  furnishing   String?
+  listingType  String?  // RENT or BUY
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("leads")
+}
+
+model Shortlist {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  propertyId String   @db.ObjectId
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  phoneNumber String
+  email      String?
+  createdAt  DateTime @default(now())
+
+  @@unique([propertyId, phoneNumber])
+  @@map("shortlists")
+}
