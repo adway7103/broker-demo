@@ -160,7 +160,7 @@ export function SmartLinkBuilder() {
       setCopied(true);
       toast.success('URL copied to clipboard!');
       setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
+    } catch {
       toast.error('Failed to copy URL');
     }
   };

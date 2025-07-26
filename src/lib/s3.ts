@@ -55,7 +55,7 @@ export function extractS3KeyFromUrl(url: string): string | null {
   try {
     const urlParts = url.split(`https://${BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/`);
     return urlParts[1] || null;
-  } catch (error) {
+  } catch {
     return null;
   }
 } 

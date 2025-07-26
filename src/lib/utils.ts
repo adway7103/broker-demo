@@ -13,7 +13,7 @@ export function formatPrice(price: number, currency: string = 'INR'): string {
   }).format(price)
 }
 
-export function generateFilterUrl(filters: Record<string, any>): string {
+export function generateFilterUrl(filters: Record<string, string | number | boolean | undefined | null>): string {
   const params = new URLSearchParams()
   
   Object.entries(filters).forEach(([key, value]) => {
