@@ -113,13 +113,13 @@ export default function HomePage() {
               <span className="text-sm font-medium">Mumbai's Trusted Property Partner</span>
             </div>
 
-                         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent leading-tight">
+                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent leading-tight">
                Find Your Perfect
                <br />
                <span className="text-blue-400">Dream Home</span>
              </h1>
              
-             <p className="text-lg md:text-xl lg:text-2xl mb-8 text-slate-300 max-w-3xl mx-auto leading-relaxed">
+             <p className="text-md md:text-lg lg:text-xl mb-8 text-slate-300 max-w-3xl mx-auto leading-relaxed">
                Discover premium properties across Mumbai with our expert guidance. 
                From luxury apartments to cozy homes, we make your property dreams come true.
              </p>
