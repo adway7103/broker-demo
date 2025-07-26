@@ -4,15 +4,15 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Search, 
-  Eye, 
-  Home, 
-  MapPin, 
-  Star, 
-  Users, 
-  Building, 
-  TrendingUp, 
+import {
+  Search,
+  Eye,
+  Home,
+  MapPin,
+  Star,
+  Users,
+  Building,
+  TrendingUp,
   CheckCircle,
   ArrowRight,
   Phone,
@@ -65,12 +65,12 @@ export default function HomePage() {
       if (propertiesResponse.ok) {
         const propertiesData = await propertiesResponse.json();
         setFeaturedProperties(propertiesData.properties || []);
-        
+
         // Calculate stats from properties
         const properties = propertiesData.properties || [];
         const rentProperties = properties.filter((p: Property) => p.listingType === 'RENT').length;
         const saleProperties = properties.filter((p: Property) => p.listingType === 'BUY').length;
-        
+
         setStats({
           totalProperties: properties.length,
           forRent: rentProperties,
@@ -99,33 +99,51 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-hidden">
+            <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-hidden min-h-screen flex items-center">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/3 to-transparent"></div>
         </div>
         
-        <div className="relative container mx-auto px-4 py-32">
+        <div className="relative container mx-auto px-4 py-8">
           <div className="max-w-5xl mx-auto text-center">
             <div className="inline-flex items-center bg-blue-500/20 backdrop-blur-sm rounded-full px-6 py-2 mb-8 border border-blue-400/30">
               <Star className="h-4 w-4 mr-2 text-yellow-400" />
               <span className="text-sm font-medium">Mumbai's Trusted Property Partner</span>
             </div>
-            
-            <h1 className="text-5xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent leading-tight">
-              Find Your Perfect
-              <br />
-              <span className="text-blue-400">Dream Home</span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl mb-12 text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Discover premium properties across Mumbai with our expert guidance. 
-              From luxury apartments to cozy homes, we make your property dreams come true.
-            </p>
-            
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 max-w-4xl mx-auto">
+
+                         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent leading-tight">
+               Find Your Perfect
+               <br />
+               <span className="text-blue-400">Dream Home</span>
+             </h1>
+             
+             <p className="text-lg md:text-xl lg:text-2xl mb-8 text-slate-300 max-w-3xl mx-auto leading-relaxed">
+               Discover premium properties across Mumbai with our expert guidance. 
+               From luxury apartments to cozy homes, we make your property dreams come true.
+             </p>
+
+
+                         {/* Main Action Buttons */}
+             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
+               <Link href="/search">
+                 <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 px-12 py-5 text-xl font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+                   <Search className="mr-3 h-6 w-6" />
+                   Start Your Search
+                 </Button>
+               </Link>
+
+               <Link href="/listings">
+                 <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-slate-900 px-12 py-5 text-xl font-semibold backdrop-blur-sm bg-white/10 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                   <Eye className="mr-3 h-6 w-6" />
+                   Browse Properties
+                 </Button>
+               </Link>
+             </div>
+
+             {/* Stats */}
+             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
                 <div className="text-3xl font-bold text-blue-400">{stats.totalProperties}+</div>
                 <div className="text-sm text-slate-300">Properties</div>
@@ -143,29 +161,16 @@ export default function HomePage() {
                 <div className="text-sm text-slate-300">Happy Clients</div>
               </div>
             </div>
-            
-            {/* Main Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Link href="/search">
-                <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 px-10 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
-                  <Search className="mr-3 h-6 w-6" />
-                  Start Your Search
-                </Button>
-              </Link>
-              
-              <Link href="/listings">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-slate-900 px-10 py-4 text-lg font-semibold backdrop-blur-sm bg-white/10 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
-                  <Eye className="mr-3 h-6 w-6" />
-                  Browse Properties
-                </Button>
-              </Link>
-            </div>
+
+
           </div>
         </div>
 
-        {/* Floating Elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-blue-500/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-32 h-32 bg-purple-500/20 rounded-full blur-xl animate-pulse delay-1000"></div>
+                 {/* Floating Elements */}
+         <div className="absolute top-1/4 left-10 w-24 h-24 bg-blue-500/20 rounded-full blur-xl animate-pulse"></div>
+         <div className="absolute bottom-1/4 right-10 w-32 h-32 bg-purple-500/20 rounded-full blur-xl animate-pulse delay-1000"></div>
+         <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-green-500/15 rounded-full blur-lg animate-pulse delay-500"></div>
+         <div className="absolute bottom-1/3 right-1/4 w-20 h-20 bg-yellow-500/15 rounded-full blur-lg animate-pulse delay-700"></div>
       </section>
 
       {/* Featured Properties Section */}
@@ -180,7 +185,7 @@ export default function HomePage() {
                 Handpicked premium properties that offer the best value and location advantages
               </p>
             </div>
-            
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
               {featuredProperties.slice(0, 6).map((property) => (
                 <Card key={property.id} className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border-0 shadow-lg">
@@ -203,17 +208,17 @@ export default function HomePage() {
                       <Heart className="h-4 w-4 text-slate-600" />
                     </div>
                   </div>
-                  
+
                   <CardContent className="p-6">
                     <h3 className="font-bold text-xl mb-2 text-slate-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
                       {property.title}
                     </h3>
-                    
+
                     <div className="flex items-center text-slate-600 mb-3">
                       <MapPin className="h-4 w-4 mr-1" />
                       <span className="text-sm">{getLocalityLabel(property.locality)}</span>
                     </div>
-                    
+
                     <div className="flex items-center justify-between mb-4">
                       <div className="text-2xl font-bold text-green-600">
                         {formatPrice(property.price, property.currency)}
@@ -222,7 +227,7 @@ export default function HomePage() {
                         {property.propertyType}
                       </div>
                     </div>
-                    
+
                     {(property.bedrooms || property.bathrooms || property.area) && (
                       <div className="flex items-center gap-4 text-sm text-slate-600 mb-4">
                         {property.bedrooms && (
@@ -245,7 +250,7 @@ export default function HomePage() {
                         )}
                       </div>
                     )}
-                    
+
                     <Link href={`/properties/${property.id}`}>
                       <Button className="w-full group-hover:bg-blue-700 transition-colors">
                         View Details
@@ -256,7 +261,7 @@ export default function HomePage() {
                 </Card>
               ))}
             </div>
-            
+
             <div className="text-center mt-12">
               <Link href="/listings">
                 <Button size="lg" variant="outline" className="px-8 py-3">
@@ -275,11 +280,11 @@ export default function HomePage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">Why Choose PropertyBroker?</h2>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              We provide end-to-end property solutions with personalized service and expert guidance 
+              We provide end-to-end property solutions with personalized service and expert guidance
               to help you make the right property decisions.
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             <div className="text-center group hover:bg-slate-50 p-6 rounded-2xl transition-all duration-300">
               <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
@@ -288,7 +293,7 @@ export default function HomePage() {
               <h3 className="text-xl font-bold mb-3 text-slate-900">Premium Properties</h3>
               <p className="text-slate-600 leading-relaxed">Carefully curated properties that meet high standards of quality, location, and value.</p>
             </div>
-            
+
             <div className="text-center group hover:bg-slate-50 p-6 rounded-2xl transition-all duration-300">
               <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                 <MapPin className="h-10 w-10 text-white" />
@@ -296,7 +301,7 @@ export default function HomePage() {
               <h3 className="text-xl font-bold mb-3 text-slate-900">Prime Locations</h3>
               <p className="text-slate-600 leading-relaxed">Properties in Mumbai's most desirable neighborhoods with excellent connectivity.</p>
             </div>
-            
+
             <div className="text-center group hover:bg-slate-50 p-6 rounded-2xl transition-all duration-300">
               <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                 <Users className="h-10 w-10 text-white" />
@@ -304,7 +309,7 @@ export default function HomePage() {
               <h3 className="text-xl font-bold mb-3 text-slate-900">Expert Guidance</h3>
               <p className="text-slate-600 leading-relaxed">Professional consultation throughout your property search and transaction process.</p>
             </div>
-            
+
             <div className="text-center group hover:bg-slate-50 p-6 rounded-2xl transition-all duration-300">
               <div className="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                 <TrendingUp className="h-10 w-10 text-white" />
@@ -325,7 +330,7 @@ export default function HomePage() {
               Real stories from satisfied customers who found their dream properties with us
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-8">
@@ -343,7 +348,7 @@ export default function HomePage() {
                 </div>
               </CardContent>
             </Card>
-            
+
             <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-8">
                 <div className="flex mb-4">
@@ -360,7 +365,7 @@ export default function HomePage() {
                 </div>
               </CardContent>
             </Card>
-            
+
             <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-8">
                 <div className="flex mb-4">
@@ -386,14 +391,14 @@ export default function HomePage() {
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5"></div>
         </div>
-        
+
         <div className="container mx-auto px-4 text-center relative">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Find Your Dream Property?</h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto text-blue-100 leading-relaxed">
-            Join thousands of satisfied customers who found their perfect homes with PropertyBroker. 
+            Join thousands of satisfied customers who found their perfect homes with PropertyBroker.
             Start your journey today and let us help you find the property of your dreams.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
             <Link href="/search">
               <Button size="lg" className="w-full sm:w-auto bg-white text-blue-700 hover:bg-blue-50 px-10 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
@@ -408,7 +413,7 @@ export default function HomePage() {
               </Button>
             </Link>
           </div>
-          
+
           <div className="flex flex-col sm:flex-row gap-8 justify-center items-center text-blue-100">
             <div className="flex items-center">
               <Phone className="h-5 w-5 mr-2" />
