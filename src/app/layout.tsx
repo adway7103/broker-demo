@@ -30,7 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-50`}
       >
         <Navbar />
-        <main className="flex-1">
+        <main className="flex-1 pt-16">
           {children}
         </main>
         <Toaster />
